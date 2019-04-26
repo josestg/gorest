@@ -13,6 +13,6 @@ func (M *Model) New(db *gorm.DB) {
 }
 
 func Migrate(db *gorm.DB)  *gorm.DB {
-	db.AutoMigrate(&Category{})
+	db.AutoMigrate(&Category{},&Product{})
 	return db
 }
