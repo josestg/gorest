@@ -1,33 +1,11 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"./app"
 )
 
-// Sample model
-type Sample struct {
-	Message string `json:"message"`
-	Success bool   `json:"success"`
-}
-
-func getWelcome(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Sample{Message: "Hello,World", Success: true})
-}
-
-func handelRequest() {
-	router := mux.NewRouter()
-	router.HandleFunc("/api/welcome", getWelcome).Methods("GET")
-	// start server
-	log.Fatal(http.ListenAndServe(":3000", router))
-}
-
 func main() {
-	fmt.Println("App started")
-	handelRequest()
+	fmt.Println("App started on Port http://127.0.0.1:3000/api/")
+	app.Run(":3000")
 }
