@@ -24,8 +24,16 @@ func GetDB(uri, dialect string) *gorm.DB{
 			err.Error()))
 		return nil
 	}
-	db.AutoMigrate(&Product{},&Image{},&Category{},
-		&CategoryProduct{},&ProductImage{})
+	db.AutoMigrate(&Product{},&Image{},&Category{},&CategoryProduct{},&ProductImage{})
+	db.Model(&CategoryProduct{}).
+		AddForeignKey("product_id","products(id)","CASCADE","CASCADE")
+	db.Model(&CategoryProduct{}).
+		AddForeignKey("category_id","categories(id)","CASCADE","CASCADE")
+	db.Exec("ALTER TABLE `category_products` ADD UNIQUE(product_id,category_id)")
+
+	db.Model(&ProductImage{}).AddForeignKey("product_id","products(id)","CASCADE","CASCADE")
+	db.Model(&ProductImage{}).AddForeignKey("image_id","images(id)","CASCADE","CASCADE")
+	db.Exec("ALTER TABLE `product_images` ADD UNIQUE(product_id,image_id)")
 	return db
 }
 
