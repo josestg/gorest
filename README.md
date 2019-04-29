@@ -29,6 +29,14 @@ go get github.com/gorilla/mux
 go run main.go
 ```
 
+### Catatan
+Karena untuk menanambah `image` juga meng-upload file ke server maka `body` pada Postman adalah `form-data` dan `header` sebagai berikut :
+`key` : `Content-Type` dan `value` : `application/x-www-form-urlencoded`.
+
+Contoh :
+![source code.](https://github.com/josestnggng/Pretest-privy-full-rest-api/tree/master/uploads/ss.png)
+
+
 # Endpoints
 - [Products](#Products)
 - [Categories](#Categories)
