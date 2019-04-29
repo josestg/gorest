@@ -86,7 +86,48 @@ func (A *App) GetImage(w http.ResponseWriter, r *http.Request){
 
 // UpdateImage : PUT /api/images/id
 func (A *App) UpdateImage(w http.ResponseWriter, r *http.Request){
+	var res Image
+	var params = getVars(r)
+	var id,err = parserID(params["id"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Find(&res, Image{ID: id}).Error; err!=nil{return}
 
+	r.ParseMultipartForm(10<<20)
+
+	var filename = res.File
+	file ,_,_ := r.FormFile("file");
+	if file!=nil {
+		if err:=UploadImage(&filename,r);err!=nil{
+			A.RespondError(w,http.StatusBadRequest,err.Error())
+			return
+		}
+		defer file.Close()
+	}
+
+
+	enable , err := parserEnable(r.Form.Get("enable"))
+	if err!=nil{
+		A.RespondError(w,http.StatusBadRequest,err.Error())
+		return
+	}
+
+	res.Enable = enable
+	res.Name = r.Form.Get("name")
+	res.File = filename
+	res.ID = id
+
+	if err:=A.Db.Save(&res).Error; err!=nil{
+		A.RespondError(w, http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	A.RespondJSON(w, http.StatusOK,&Response{
+		Success:true,
+		Data:res,
+	})
 }
 
 // DeleteImage : Delete /api/images/id
