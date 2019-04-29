@@ -68,7 +68,27 @@ func (A *App) CreateCategoryProduct(w http.ResponseWriter, r *http.Request){
 
 // GetProduct : GET /api/category-products/pid/cid
 func (A *App) GetCategoryProduct(w http.ResponseWriter, r *http.Request){
+	var res []CategoryProduct
+	var params = getVars(r)
+	pid,err := parserID(params["pid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
 
+	cid,err := parserID(params["cid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Find(&res, CategoryProduct{ProductID: pid,CategoryID:cid}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	final := A.ResponseCategoryProductWrapper(res)
+
+	A.RespondJSON(w,http.StatusOK,final)
 }
 
 // UpdateProduct : PUT /api/category-products/pid/cid
