@@ -5,7 +5,12 @@ import (
 )
 // GetCategories : GET /api/categories
 func (A *App) GetCategories(w http.ResponseWriter, r *http.Request){
-
+	var res []Category
+	if err :=A.Db.Find(&res).Error; err !=nil {
+		A.RespondError(w,http.StatusBadRequest,err.Error())
+		return
+	}
+	A.RespondJSON(w,http.StatusOK,res)
 
 }
 
