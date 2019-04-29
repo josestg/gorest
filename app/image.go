@@ -3,6 +3,7 @@ package app
 import (
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 // Upload Image  to dir Uploads
 func UploadImage(filename *string,r *http.Request) error  {
@@ -132,5 +133,27 @@ func (A *App) UpdateImage(w http.ResponseWriter, r *http.Request){
 
 // DeleteImage : Delete /api/images/id
 func (A *App) DeleteImage(w http.ResponseWriter, r *http.Request){
+	var res Image
+	var params = getVars(r)
+	var id,err = parserID(params["id"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Find(&res, Image{ID: id}).Error; err!=nil{return}
 
+	var path = res.File
+	if err := os.Remove(path); err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
+	if err:= A.Db.Delete(&res, Image{ID: id}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	A.RespondJSON(w, http.StatusOK,&Response{
+		Success:true,
+		Data:res,
+	})
 }
