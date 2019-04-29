@@ -30,4 +30,11 @@ func (A *App) SetupRouter(){
 	A.Put("/api/category-products/{pid}/{cid}",A.UpdateCategoryProduct)
 	A.Del("/api/category-products/{pid}/{cid}",A.DeleteCategoryProduct)
 
+	// Product Image Endpoints
+	A.Get("/api/product-images",A.GetProductImages)
+	A.Post("/api/product-images",A.CreateProductImage)
+	A.Get("/api/product-images/{pid}/{iid}",A.GetProductImage)
+	A.Put("/api/product-images/{pid}/{iid}",A.UpdateProductImage)
+	A.Del("/api/product-images/{pid}/{iid}",A.DeleteProductImage)
+
 }
