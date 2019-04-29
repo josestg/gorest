@@ -69,7 +69,19 @@ func (A *App) CreateImage(w http.ResponseWriter, r *http.Request){
 
 // GetImage : GET /api/images/id
 func (A *App) GetImage(w http.ResponseWriter, r *http.Request){
+	var res Image
+	var params = getVars(r)
+	var id,err = parserID(params["id"])
+	if err!=nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.First(&res, Image{ID: id}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
 
+	A.RespondJSON(w,http.StatusOK,res)
 }
 
 // UpdateImage : PUT /api/images/id
