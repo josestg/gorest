@@ -93,7 +93,36 @@ func (A *App) GetCategoryProduct(w http.ResponseWriter, r *http.Request){
 
 // UpdateProduct : PUT /api/category-products/pid/cid
 func (A *App) UpdateCategoryProduct(w http.ResponseWriter, r *http.Request){
+	var res CategoryProduct
+	var decoder = json.NewDecoder(r.Body)
+	var params = getVars(r)
+	pid,err := parserID(params["pid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
 
+	cid,err := parserID(params["cid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Delete(&res, CategoryProduct{ProductID: pid,CategoryID:cid}).Error; err!=nil{return}
+	if err:= decoder.Decode(&res); err!=nil{
+		A.RespondError(w,http.StatusBadRequest,err.Error())
+		return
+	}
+	defer r.Body.Close()
+
+	if err:=A.Db.Save(&res).Error; err!=nil{
+		A.RespondError(w, http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	A.RespondJSON(w, http.StatusOK,&Response{
+		Success:true,
+		Data:res,
+	})
 }
 
 // DeleteProduct : Delete /api/category-products/pid/cid
