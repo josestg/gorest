@@ -1,6 +1,6 @@
 package main
 
-import "myprestest/app"
+import "github.com/josestnggng/Pretest-privy-full-rest-api/app"
 
 func main() {
 	app.CreateDB("pretest")

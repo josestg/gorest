@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../myprestest/.idea/Pretest-privy-full-rest-api.iml" filepath="$PROJECT_DIR$/../myprestest/.idea/Pretest-privy-full-rest-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/privygoapi.iml" filepath="$PROJECT_DIR$/.idea/privygoapi.iml" />
     </modules>
   </component>
 </project>
