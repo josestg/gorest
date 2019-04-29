@@ -26,3 +26,9 @@ func parserID(n string) (uint, error){
 	id,err:= strconv.ParseInt(n,10,32)
 	return uint(id), err
 }
+
+func parserEnable(n string) (bool, error){
+	id,err:= strconv.ParseBool(n)
+	return bool(id), err
+}
+
