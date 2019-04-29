@@ -1,6 +1,7 @@
 package app
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
@@ -45,6 +46,22 @@ func (A *App) GetCategoryProducts(w http.ResponseWriter, r *http.Request){
 
 // CreateProduct : POST /api/category-products
 func (A *App) CreateCategoryProduct(w http.ResponseWriter, r *http.Request){
+	var res CategoryProduct
+	var decoder = json.NewDecoder(r.Body)
+	if err := decoder.Decode(&res); err!=nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	defer r.Body.Close()
+	if err:= A.Db.Save(&res).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	A.RespondJSON(w,http.StatusOK, &Response{
+		Success:true,
+		Data:res,
+	})
 
 
 }
