@@ -5,14 +5,44 @@ import (
 )
 
 func (A *App) ProductImageWrapper(res []ProductImage) *[]ProductImagesResponse {
+	// mengumpulkan kategory suatu product
+	index := map[uint][]uint{}
+	for _,data := range res{
+		s := index[data.ProductID]
+		index[data.ProductID] = append(s, data.ImageID)
+	}
+	//membungkus data
+	var final []ProductImagesResponse
+	for k,values := range index{
+		data := ProductImagesResponse{}
 
-	return nil
+		p := Product{}
+		if err :=A.Db.Find(&p, Product{ID: k}).Error; err !=nil {return nil}
+
+		data.Product = p
+		for _,v := range values{
+			c := Image{}
+			if err :=A.Db.Find(&c, Image{ID: uint(v)}).Error; err !=nil {return nil}
+			data.Image = append(data.Image, c)
+		}
+
+		final = append(final,data)
+	}
+
+	return &final
 }
 
 // GetProducts : GET /api/product-images
 func (A *App) GetProductImages(w http.ResponseWriter, r *http.Request){
 
+	var res []ProductImage
+	if err :=A.Db.Find(&res).Error; err !=nil {
+		A.RespondError(w,http.StatusBadRequest,err.Error())
+		return
+	}
 
+	final := A.ProductImageWrapper(res)
+	A.RespondJSON(w,http.StatusOK,final)
 }
 
 // CreateProduct : POST /api/product-images
