@@ -23,4 +23,11 @@ func (A *App) SetupRouter(){
 	A.Put("/api/images/{id}",A.UpdateImage)
 	A.Del("/api/images/{id}",A.DeleteImage)
 
+	// Category Product Endpoints
+	A.Get("/api/category-products",A.GetCategoryProducts)
+	A.Post("/api/category-products",A.CreateCategoryProduct)
+	A.Get("/api/category-products/{pid}/{cid}",A.GetCategoryProduct)
+	A.Put("/api/category-products/{pid}/{cid}",A.UpdateCategoryProduct)
+	A.Del("/api/category-products/{pid}/{cid}",A.DeleteCategoryProduct)
+
 }
