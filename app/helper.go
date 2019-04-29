@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 // HELPER
@@ -19,4 +20,9 @@ func (A *App) RespondJSON (w http.ResponseWriter, status int, payload interface{
 
 func (A *App) RespondError (w http.ResponseWriter, code int, msg string){
 	A.RespondJSON(w,code,map[string]string{"error": msg})
+}
+
+func parserID(n string) (uint, error){
+	id,err:= strconv.ParseInt(n,10,32)
+	return uint(id), err
 }
