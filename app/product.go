@@ -83,5 +83,21 @@ func (A *App) UpdateProduct(w http.ResponseWriter, r *http.Request){
 
 // DeleteProduct : Delete /api/products/id
 func (A *App) DeleteProduct(w http.ResponseWriter, r *http.Request){
+	var res Product
+	var params = getVars(r)
+	var id,err = parserID(params["id"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Find(&res, Product{ID: id}).Error; err!=nil{return}
+	if err:= A.Db.Delete(&res, Product{ID: id}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
 
+	A.RespondJSON(w, http.StatusOK,&Response{
+		Success:true,
+		Data:res,
+	})
 }
