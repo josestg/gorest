@@ -84,5 +84,21 @@ func (A *App) UpdateCategory(w http.ResponseWriter, r *http.Request){
 
 // DeleteCategory : Delete /api/categories/id
 func (A *App) DeleteCategory(w http.ResponseWriter, r *http.Request){
+	var res Category
+	var params = getVars(r)
+	var id,err = parserID(params["id"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	if err:= A.Db.Find(&res, Category{ID: id}).Error; err!=nil{return}
+	if err:= A.Db.Delete(&res, Category{ID: id}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
 
+	A.RespondJSON(w, http.StatusOK,&Response{
+		Success:true,
+		Data:res,
+	})
 }
