@@ -1,6 +1,7 @@
 package app
 
 import (
+	"encoding/json"
 	"net/http"
 )
 
@@ -48,7 +49,22 @@ func (A *App) GetProductImages(w http.ResponseWriter, r *http.Request){
 // CreateProduct : POST /api/product-images
 func (A *App) CreateProductImage(w http.ResponseWriter, r *http.Request){
 
+	var res ProductImage
+	var decoder = json.NewDecoder(r.Body)
+	if err := decoder.Decode(&res); err!=nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+	defer r.Body.Close()
+	if err:= A.Db.Save(&res).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
 
+	A.RespondJSON(w,http.StatusOK, &Response{
+		Success:true,
+		Data:res,
+	})
 }
 
 // GetProduct : GET /api/product-images/pid/iid
