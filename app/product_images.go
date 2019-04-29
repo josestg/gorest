@@ -69,7 +69,28 @@ func (A *App) CreateProductImage(w http.ResponseWriter, r *http.Request){
 
 // GetProduct : GET /api/product-images/pid/iid
 func (A *App) GetProductImage(w http.ResponseWriter, r *http.Request){
+	var res []ProductImage
+	var params = getVars(r)
 
+	pid,err := parserID(params["pid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+
+	iid,err := parserID(params["iid"])
+	if err != nil{
+		A.RespondError(w, http.StatusBadRequest,err.Error())
+		return
+	}
+
+	if err:= A.Db.Find(&res, ProductImage{ProductID: pid,ImageID:iid}).Error; err!=nil{
+		A.RespondError(w,http.StatusInternalServerError,err.Error())
+		return
+	}
+
+	final := A.ProductImageWrapper(res)
+	A.RespondJSON(w,http.StatusOK,final)
 }
 
 // UpdateProduct : PUT /api/product-images/pid/iid
