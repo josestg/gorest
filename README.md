@@ -34,7 +34,8 @@ Karena untuk menanambah `image` juga meng-upload file ke server maka `body` pada
 `key` : `Content-Type` dan `value` : `application/x-www-form-urlencoded`.
 
 Contoh :
-![source code.](https://github.com/josestnggng/Pretest-privy-full-rest-api/tree/master/uploads/ss.png)
+
+![source code.](https://github.com/josestnggng/Pretest-privy-full-rest-api/blob/master/uploads/ss.png)
 
 
 # Endpoints
