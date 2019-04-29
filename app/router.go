@@ -9,4 +9,11 @@ func (A *App) SetupRouter(){
 	A.Put("/api/products/{id}",A.UpdateProduct)
 	A.Del("/api/products/{id}",A.DeleteProduct)
 
+	// Category Endpoints
+	A.Get("/api/categories",A.GetCategories)
+	A.Post("/api/categories",A.CreateCategory)
+	A.Get("/api/categories/{id}",A.GetCategory)
+	A.Put("/api/categories/{id}",A.UpdateCategory)
+	A.Del("/api/categories/{id}",A.DeleteCategory)
+
 }
