@@ -9,6 +9,7 @@ func main() {
 		DbDialect: "mysql",
 	})
 
+	app.SetupRouter()
 	app.Run(":8000")
 
 }

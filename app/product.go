@@ -5,7 +5,12 @@ import (
 )
 // GetProducts : GET /api/products
 func (A *App) GetProducts(w http.ResponseWriter, r *http.Request){
-
+	var res []Product
+	if err :=A.Db.Find(&res).Error; err !=nil {
+		A.RespondError(w,http.StatusBadRequest,err.Error())
+		return
+	}
+	A.RespondJSON(w,http.StatusOK,res)
 }
 
 // CreateProduct : POST /api/products
