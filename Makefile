@@ -4,3 +4,6 @@ install :
 	go get github.com/gorilla/mux   
 start :
 	go run main.go
+
+seed :
+	go run make_seed.go

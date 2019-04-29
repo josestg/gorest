@@ -3,13 +3,14 @@ package main
 import "myprestest/app"
 
 func main() {
-
+	app.CreateDB("pretest")
 	app := app.New(app.Config{
 		DbUser: "root",
 		DbName:    "pretest",
 		DbDialect: "mysql",
 	})
-	app.SetupRouter()
-	app.Run(":8000")
+	app.Logger.Printf("Generating tables from seed")
+	app.RunSeeder()
+	app.Logger.Printf("Ok")
 
 }
