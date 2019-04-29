@@ -9,6 +9,8 @@ func main() {
 		DbName:    "pretest",
 		DbDialect: "mysql",
 	})
+
+
 	app.Logger.Printf("Generating tables from seed")
 	app.RunSeeder()
 	app.Logger.Printf("Ok")
