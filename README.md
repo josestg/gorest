@@ -4,28 +4,46 @@
 ## Quick Start
 Semua Endpoint pada aplikasi ini diuji menggukan Aplikasi [Postman](https://www.getpostman.com/).
 
+**1. Mengunduh project ke $GOPATH/src**
+```bash
+# mengunduh project ke GOPATH/src
+go get github.com/josestnggng/Pretest-privy-full-rest-api
+
+```
+
+**catatan** :
+abaikan jika ada pesan berikut
+`josestnggng/Pretest-privy-full-rest-api/make_seed.go:5:6: main redeclared in this block
+    previous declaration at josestnggng/Pretest-privy-full-rest-api/main.go:5:6
+`
+
+**2. Menjalankan Aplikasi**
+
 #### Linux
 ```bash
-# install dependencies
-make install
+# pindah ke folder GOPATH
+cd $GOPATH/github.com/josestnggng/Pretest-privy-full-rest-api
 
 # menbangkitkan table dari seed
 make seed
+atau
+go make_seed
 
-# mejalankan aplikasi
+# Memulai aplikasi
 make start
+atau
+go run main.go
 ```
 
 #### Windows
 ```bash
-# install dependencies
-go get github.com/go-sql-driver/mysql 
-go get github.com/jinzhu/gorm
-go get github.com/gorilla/mux   
-```
+# pindah ke folder GOPATH
+cd %GOPATH%\\src\\github.com/josestnggng/Pretest-privy-full-rest-api
 
-```bash
-# start app
+# menbangkitkan table dari seed
+go run make_seed.go
+
+# Memulai aplikasi
 go run main.go
 ```
 
