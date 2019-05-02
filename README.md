@@ -224,6 +224,7 @@ Respond :
 ```
 
 contoh `Update` :
+
 kasus : Update category_products dengan product ber-id 1 dan category ber-id 3 menjadi category ber-id 2
 
 ```http
@@ -248,6 +249,7 @@ respond:
 ```
 
 contoh `delete` :
+
 kasus : delete catgory_product dengan product ber-id 1 dan image ber-id 2.
 
 ```http
@@ -313,12 +315,14 @@ Respond :
 
 ```
 contoh `Update` :
+
 kasus : Update product_images dengan product ber-id 1 dan image ber-id 4 menjadi image ber-id 2
 
 ```http
 PUT /api/product-images/1/4
 ```
 request body:
+
 ```json
 {
     "product_id" : 1,
@@ -336,15 +340,16 @@ respond:
 }
 ```
 
-```
 contoh `delete` :
+
 kasus : delete product_images dengan product ber-id 1 dan image ber-id 2.
 
 ```http
 DELETE /api/product-images/1/2
-
 ```
+
 respond:
+
 ```json
 {
     "success": true,
