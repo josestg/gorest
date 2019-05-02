@@ -38,7 +38,7 @@ go run main.go
 #### Windows
 ```bash
 # pindah ke folder GOPATH
-cd %GOPATH%\\src\\github.com/josestnggng/Pretest-privy-full-rest-api
+cd %GOPATH%\src\github.com\josestnggng\Pretest-privy-full-rest-api
 
 # menbangkitkan table dari seed
 go run make_seed.go
