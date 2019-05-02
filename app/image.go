@@ -142,11 +142,15 @@ func (A *App) DeleteImage(w http.ResponseWriter, r *http.Request){
 	}
 	if err:= A.Db.Find(&res, Image{ID: id}).Error; err!=nil{return}
 
+	// hapus kode berikut jika tidak ada file (keperluan test)
 	var path = res.File
 	if err := os.Remove(path); err!=nil{
 		A.RespondError(w,http.StatusInternalServerError,err.Error())
 		return
 	}
+	// end delete file
+	
+	
 	if err:= A.Db.Delete(&res, Image{ID: id}).Error; err!=nil{
 		A.RespondError(w,http.StatusInternalServerError,err.Error())
 		return
