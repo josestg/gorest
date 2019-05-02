@@ -144,6 +144,12 @@ Respond :
 | `PUT api/images/{id}` | Meng-update `image` sesuai `id` | image ID |
 | `DELETE api/images/{id}` | Menghapus satu `image` sesuai `id` | Product ID |
 
+#### catatan :
+untuk simluasi Update dan Delete disarankan tidak menggunakan images yang digenerated dari seed, karena pada folder uploads tidak disertakan file image nya. jika tetap ingin menggunakan bisa mengomentari baris kode untuk menghapus image dari disk yang ada pada file image.go.
+
+atau bisa mensimulasikan dengan meng-upload file image anda terlebih dahulu, laku melakukan operasi PUT dan DELETE pada file image yang baru di upload.
+
+
 <br>
 
 Contoh Request :
@@ -166,6 +172,8 @@ Respond :
         "enable": false
     }
 ]
+
+
 
 ```
 
@@ -225,6 +233,7 @@ Respond :
 | `POST api/product-images` | Memasukkan `product-images` baru ke database | None |
 | `PUT api/product-images/{pid}/{iid}` | Meng-update `product-images` sesuai parameter`pid` dan `iid` | productID (pid), imageID (iid) |
 | `DELETE api/product-images/{pid}/{iid}` | Menghapus satu `product-images` sesuai parameter`pid` dan `iid` | productID (pid), imageID (iid) |
+
 
 <br>
 
