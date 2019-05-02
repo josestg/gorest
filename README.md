@@ -223,6 +223,51 @@ Respond :
 
 ```
 
+contoh `Update` :
+kasus : Update category_products dengan product ber-id 1 dan category ber-id 3 menjadi category ber-id 2
+
+```http
+PUT /api/category-products/1/3
+```
+request body:
+```json
+{
+	"product_id" : 1,
+    "category_id": 2
+}
+```
+respond:
+```json
+{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "category_id": 2
+    }
+}
+```
+
+contoh `delete` :
+kasus : delete catgory_product dengan product ber-id 1 dan image ber-id 2.
+
+```http
+DELETE /api/category-products/1/2
+
+```
+respond:
+```json
+{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "category_id": 2
+    }
+}
+```
+
+
+
+
 
 ## Product Images
 
@@ -266,4 +311,46 @@ Respond :
     }
 ]
 
+```
+contoh `Update` :
+kasus : Update product_images dengan product ber-id 1 dan image ber-id 4 menjadi image ber-id 2
+
+```http
+PUT /api/product-images/1/4
+```
+request body:
+```json
+{
+    "product_id" : 1,
+    "image_id": 2
+}
+```
+respond:
+```json
+{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "image_id": 2
+    }
+}
+```
+
+```
+contoh `delete` :
+kasus : delete product_images dengan product ber-id 1 dan image ber-id 2.
+
+```http
+DELETE /api/product-images/1/2
+
+```
+respond:
+```json
+{
+    "success": true,
+    "data": {
+        "product_id": 1,
+        "image_id": 2
+    }
+}
 ```
