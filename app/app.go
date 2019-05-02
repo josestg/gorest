@@ -27,11 +27,11 @@ func GetDB(uri, dialect string) *gorm.DB{
 	db.AutoMigrate(&Product{},&Image{},&Category{},&CategoryProduct{},&ProductImage{})
 	//hapus kode berikut jika memperbolehkan pengapusahan image dan category dari table
 	// category_product dan product_images
-	db.Model(&CategoryProduct{}).
-		AddForeignKey("product_id","products(id)","CASCADE","CASCADE")
-	db.Model(&CategoryProduct{}).
-		AddForeignKey("category_id","categories(id)","CASCADE","CASCADE")
-	db.Exec("ALTER TABLE `category_products` ADD UNIQUE(product_id,category_id)")
+// 	db.Model(&CategoryProduct{}).
+// 		AddForeignKey("product_id","products(id)","CASCADE","CASCADE")
+// 	db.Model(&CategoryProduct{}).
+// 		AddForeignKey("category_id","categories(id)","CASCADE","CASCADE")
+// 	db.Exec("ALTER TABLE `category_products` ADD UNIQUE(product_id,category_id)")
 	// sampai disini
 
 	db.Model(&ProductImage{}).AddForeignKey("product_id","products(id)","CASCADE","CASCADE")
