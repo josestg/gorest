@@ -22,7 +22,7 @@ abaikan jika ada pesan berikut
 #### Linux
 ```bash
 # pindah ke folder GOPATH
-cd $GOPATH/github.com/josestnggng/Pretest-privy-full-rest-api
+cd $GOPATH/github.com/josestg/Pretest-privy-full-rest-api
 
 # menbangkitkan table dari seed
 make seed
@@ -38,7 +38,7 @@ go run main.go
 #### Windows
 ```bash
 # pindah ke folder GOPATH
-cd %GOPATH%\src\github.com\josestnggng\Pretest-privy-full-rest-api
+cd %GOPATH%\src\github.com\josestg\Pretest-privy-full-rest-api
 
 # menbangkitkan table dari seed
 go run make_seed.go
